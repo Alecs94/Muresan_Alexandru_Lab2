@@ -39,10 +39,10 @@
                 <span asp-validation-for="Book.PublisherID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label>Categories</label>
-
+                <label asp-for="Book.BookCategories" class="control-label">Categories</label>
+                <div class="row row-cols-3 row-cols-md-3 g-2">
                 @foreach (var cat in Model.AssignedCategoryDataList)
-                {
+                {   
                     <div class="form-check">
                         <input class="form-check-input"
                                type="checkbox"
@@ -57,6 +57,7 @@
                         </label>
                     </div>
                 }
+                </div>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
