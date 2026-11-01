@@ -18,5 +18,9 @@ namespace Muresan_Alexandru_Lab2.Models
 
         public int? AuthorID { get; set; }
         public Author? Author { get; set; }
+
+        [ScaffoldColumn(false)]
+        [Display(Name = "Categories")]
+        public ICollection<BookCategory>? BookCategories { get; set; }
     }
 }

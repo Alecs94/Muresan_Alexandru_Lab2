@@ -21,7 +21,7 @@
             @Html.DisplayNameFor(model => model.Book.Author)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Book.Author)
+            @Html.DisplayFor(model => model.Book.Author.FirstName) @Html.DisplayFor(model => model.Book.Author.LastName)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Book.Price)
@@ -31,28 +31,22 @@
         </dd>
         <dt class="col-sm-2">             
             @Html.DisplayNameFor(model => model.Book.PublishingDate)         
-        <dt>
+        </dt>
         <dd class="col-sm-10">             
             @Html.DisplayFor(model => model.Book.PublishingDate)         
         </dd>
         <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Book.Publisher.PublisherName)
+                    @Html.DisplayNameFor(model => model.Book.BookCategories)
         </dt>
-        <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.Book.Publisher.PublisherName)
-        </dd>
-        <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Book.Author.FirstName)
-        </dt>
-        <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.Book.Author.FirstName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Book.Author.LastName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Book.Author.LastName)
-        </dd>
+                <dd class="col-sm-10">
+                    @if (Model.Book.BookCategories != null && Model.Book.BookCategories.Any())
+                    {
+                        <p>@string.Join(", ", Model.Book.BookCategories.Select(bc => bc.Category.CategoryName))</p>
+                    }
+                    else
+                    {
+                        <p>No categories assigned.</p>
+                    }
     </dl>
 </div>
 <div>

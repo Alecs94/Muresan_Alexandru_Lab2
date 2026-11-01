@@ -39,7 +39,7 @@ namespace Muresan_Alexandru_Lab2.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Author");
+                    b.ToTable("Author", (string)null);
                 });
 
             modelBuilder.Entity("Muresan_Alexandru_Lab2.Models.Book", b =>
@@ -72,7 +72,47 @@ namespace Muresan_Alexandru_Lab2.Migrations
 
                     b.HasIndex("PublisherID");
 
-                    b.ToTable("Book");
+                    b.ToTable("Book", (string)null);
+                });
+
+            modelBuilder.Entity("Muresan_Alexandru_Lab2.Models.BookCategory", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<int>("BookID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoryID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("BookID");
+
+                    b.HasIndex("CategoryID");
+
+                    b.ToTable("BookCategory", (string)null);
+                });
+
+            modelBuilder.Entity("Muresan_Alexandru_Lab2.Models.Category", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Category", (string)null);
                 });
 
             modelBuilder.Entity("Muresan_Alexandru_Lab2.Models.Publisher", b =>
@@ -89,7 +129,7 @@ namespace Muresan_Alexandru_Lab2.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Publisher");
+                    b.ToTable("Publisher", (string)null);
                 });
 
             modelBuilder.Entity("Muresan_Alexandru_Lab2.Models.Book", b =>
@@ -105,6 +145,35 @@ namespace Muresan_Alexandru_Lab2.Migrations
                     b.Navigation("Author");
 
                     b.Navigation("Publisher");
+                });
+
+            modelBuilder.Entity("Muresan_Alexandru_Lab2.Models.BookCategory", b =>
+                {
+                    b.HasOne("Muresan_Alexandru_Lab2.Models.Book", "Book")
+                        .WithMany("BookCategories")
+                        .HasForeignKey("BookID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Muresan_Alexandru_Lab2.Models.Category", "Category")
+                        .WithMany("BookCategories")
+                        .HasForeignKey("CategoryID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Book");
+
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("Muresan_Alexandru_Lab2.Models.Book", b =>
+                {
+                    b.Navigation("BookCategories");
+                });
+
+            modelBuilder.Entity("Muresan_Alexandru_Lab2.Models.Category", b =>
+                {
+                    b.Navigation("BookCategories");
                 });
 
             modelBuilder.Entity("Muresan_Alexandru_Lab2.Models.Publisher", b =>
