@@ -39,7 +39,7 @@ public class CreateModel : BookCategoriesPageModel
     [BindProperty]
     public Book Book { get; set; } = default!;
 
-    public async Task<IActionResult> OnPostAsync(string[] selectedCategories) 
+    public async Task<IActionResult> OnPostAsync(int[] selectedCategories)
     { 
         var newBook = new Book();
         if (selectedCategories != null) 
@@ -49,7 +49,7 @@ public class CreateModel : BookCategoriesPageModel
             { 
                 var catToAdd = new BookCategory 
                 { 
-                    CategoryID = int.Parse(cat) 
+                    CategoryID = cat
                 };
                 newBook.BookCategories.Add(catToAdd);
             } 
@@ -59,5 +59,6 @@ public class CreateModel : BookCategoriesPageModel
         
         _context.Book.Add(Book);
         await _context.SaveChangesAsync();
-        return RedirectToPage("./Index"); }
+        return RedirectToPage("./Index"); 
+    }
 }

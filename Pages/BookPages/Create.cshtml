@@ -34,7 +34,7 @@
                 <label asp-for="Book.PublishingDate" class="control-label"></label>                 
                 <input asp-for="Book.PublishingDate" class="form-control" />                 
                 <span asp-validation-for="Book.PublishingDate" class="textdanger"></span>
-            <div class="form-group">
+            
             <div class="form-group">             
                 <label asp-for="Book.PublisherID" class="control-label">Publisher Name</label>             
                 <select asp-for="Book.PublisherID" class="form-control" asp-items="ViewBag.PublisherID"> 
@@ -42,34 +42,26 @@
                 </select>             
                 <span asp-validation-for="Book.PublisherID" class="text-danger"></span> 
             </div>
-            <div class="form-group">
-                <div class="table">
-                    <table>
-                        <tr>
-                            @{
-                                int cnt = 0;
-                                foreach (var cat in Model.AssignedCategoryDataList)
-                                {                                     
-                                    if (cnt++ % 3 == 0)
-                                    {
-                                        @:</tr><tr>
-                                    }
-                                    @:<td>
-                                        <input type="checkbox"
-                                                name="selectedCategories"
-                                                value="@cat.CategoryID"
-                                                @(Html.Raw(cat.Assigned
-                                                    ? "checked=\"checked\""
-                                                    : "")) />
-                                        @cat.CategoryID @:  @cat.Name
-                                    @:</td>
-                                }
-                            @:</tr>
-                            }
-                    </table>                     
-                </div> 
-            </div>
+            <div class="form-group mb-3">
+                <label class="form-label">Categories</label>
 
+                @foreach (var cat in Model.AssignedCategoryDataList)
+                {
+                    <div class="form-check">
+                        <input class="form-check-input"
+                               type="checkbox"
+                               id="category-@cat.CategoryID"
+                               name="selectedCategories"
+                               value="@cat.CategoryID" />
+
+                        <label class="form-check-label"
+                               for="category-@cat.CategoryID">
+                            @cat.Name
+                        </label>
+                    </div>
+                }
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
